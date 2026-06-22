@@ -1,0 +1,16 @@
+@model WebApplication1.Models.Patient
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Patient Details</h2>
+<dl class="row">
+    <dt class="col-sm-3">Full Name</dt><dd class="col-sm-9">@Model.FullName</dd>
+    <dt class="col-sm-3">Age</dt><dd class="col-sm-9">@Model.Age</dd>
+    <dt class="col-sm-3">Gender</dt><dd class="col-sm-9">@Model.Gender</dd>
+    <dt class="col-sm-3">Contact</dt><dd class="col-sm-9">@Model.ContactNumber</dd>
+    <dt class="col-sm-3">Address</dt><dd class="col-sm-9">@Model.Address</dd>
+    <dt class="col-sm-3">Medical History</dt><dd class="col-sm-9">@Model.MedicalHistory</dd>
+    <dt class="col-sm-3">Registered On</dt><dd class="col-sm-9">@Model.RegisteredOn.ToShortDateString()</dd>
+</dl>
+@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })

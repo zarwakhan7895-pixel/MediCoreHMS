@@ -1,0 +1,63 @@
+@model MediCoreHMS.ViewModels.DashboardVM
+@using System.Linq
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Hospital Dashboard</h2>
+<p class="text-muted">Group Configuration Number (GCN) = 1 &rarr; Doctors On Duty + Admissions in Last 24 Hours</p>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card text-center"><div class="card-body">
+            <h5>Total Patients</h5><h2>@Model.TotalPatients</h2>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center"><div class="card-body">
+            <h5>Total Beds</h5><h2>@Model.TotalBeds</h2>
+        </div></div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center"><div class="card-body">
+            <h5>Occupied Beds</h5><h2>@Model.OccupiedBeds</h2>
+        </div></div>
+    </div>
+</div>
+
+<h4>Doctors Currently On Duty</h4>
+<table class="table table-bordered">
+    <tr><th>Name</th><th>Specialization</th><th>Ward</th><th>Schedule</th></tr>
+    @foreach (var d in Model.DoctorsOnDuty)
+    {
+        <tr>
+            <td>@d.DoctorName</td>
+            <td>@d.Specialization</td>
+            <td>@d.Ward</td>
+            <td>@d.ConsultationSchedule</td>
+        </tr>
+    }
+    @if (!Model.DoctorsOnDuty.Any())
+    {
+        <tr><td colspan="4" class="text-center text-muted">No doctors currently on duty</td></tr>
+    }
+</table>
+
+<h4 class="mt-5">Admissions in the Last 24 Hours</h4>
+<table class="table table-bordered">
+    <tr><th>Patient</th><th>Doctor</th><th>Ward</th><th>Entry Type</th><th>Admission Time</th></tr>
+    @foreach (var a in Model.RecentAdmissions)
+    {
+        <tr>
+            <td>@a.PatientName</td>
+            <td>@a.DoctorName</td>
+            <td>@a.Ward</td>
+            <td>@a.EntryType</td>
+            <td>@a.AdmissionDate.ToString("dd-MMM-yyyy hh:mm tt")</td>
+        </tr>
+    }
+    @if (!Model.RecentAdmissions.Any())
+    {
+        <tr><td colspan="5" class="text-center text-muted">No admissions in the last 24 hours</td></tr>
+    }
+</table>

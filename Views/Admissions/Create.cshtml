@@ -1,0 +1,44 @@
+@model WebApplication1.Models.Admission
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Admission</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="mb-2">
+        <label>Patient</label>
+        @Html.DropDownList("PatientId", null, "-- Select Patient --", new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        <label>Doctor</label>
+        @Html.DropDownList("DoctorId", null, "-- Select Doctor --", new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        <label>Bed</label>
+        @Html.DropDownList("BedId", null, "-- Select Bed --", new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.Ward)
+        @Html.DropDownListFor(m => m.Ward, new[] {
+            new SelectListItem { Text = "General", Value = "General" },
+            new SelectListItem { Text = "ICU", Value = "ICU" },
+            new SelectListItem { Text = "Maternity", Value = "Maternity" },
+            new SelectListItem { Text = "Pediatric", Value = "Pediatric" }
+        }, "-- Select Ward --", new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.EntryType)
+        @Html.DropDownListFor(m => m.EntryType, new[] {
+            new SelectListItem { Text = "Emergency", Value = "Emergency" },
+            new SelectListItem { Text = "OPD", Value = "OPD" }
+        }, "-- Select --", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Admit Patient</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

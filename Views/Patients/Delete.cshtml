@@ -1,0 +1,15 @@
+@model WebApplication1.Models.Patient
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Patient</h2>
+<p>Are you sure you want to delete <strong>@Model.FullName</strong>?</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PatientId)
+    <button type="submit" class="btn btn-danger">Delete</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

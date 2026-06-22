@@ -1,0 +1,28 @@
+@model IEnumerable<WebApplication1.Models.Doctor>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Doctors</h2>
+<p>@Html.ActionLink("+ Add New Doctor", "Create", null, new { @class = "btn btn-success mb-2" })</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Name</th><th>Specialization</th><th>Ward</th><th>Available</th><th>Schedule</th><th></th>
+    </tr>
+    @foreach (var d in Model)
+    {
+        <tr>
+            <td>@d.FullName</td>
+            <td>@d.Specialization</td>
+            <td>@d.Ward</td>
+            <td>@(d.IsAvailable ? "Yes" : "No")</td>
+            <td>@d.ConsultationSchedule</td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = d.DoctorId }, new { @class = "btn btn-sm btn-info" })
+                @Html.ActionLink("Edit", "Edit", new { id = d.DoctorId }, new { @class = "btn btn-sm btn-warning" })
+                @Html.ActionLink("Delete", "Delete", new { id = d.DoctorId }, new { @class = "btn btn-sm btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

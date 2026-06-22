@@ -1,0 +1,42 @@
+@model WebApplication1.Models.Doctor
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@(Model.DoctorId == 0 ? "Add Doctor" : "Edit Doctor")</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.DoctorId)
+
+    <div class="mb-2">
+        @Html.LabelFor(m => m.FullName)
+        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.Specialization)
+        @Html.TextBoxFor(m => m.Specialization, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.Ward)
+        @Html.DropDownListFor(m => m.Ward, new[] {
+            new SelectListItem { Text = "General", Value = "General" },
+            new SelectListItem { Text = "ICU", Value = "ICU" },
+            new SelectListItem { Text = "Maternity", Value = "Maternity" },
+            new SelectListItem { Text = "Pediatric", Value = "Pediatric" }
+        }, "-- Select Ward --", new { @class = "form-control" })
+    </div>
+    <div class="mb-2 form-check">
+        @Html.CheckBoxFor(m => m.IsAvailable, new { @class = "form-check-input" })
+        @Html.LabelFor(m => m.IsAvailable, new { @class = "form-check-label" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.ConsultationSchedule)
+        @Html.TextBoxFor(m => m.ConsultationSchedule, new { @class = "form-control", placeholder = "e.g. 07:00 AM - 02:00 PM" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

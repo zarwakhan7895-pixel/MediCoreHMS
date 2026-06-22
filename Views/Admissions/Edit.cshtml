@@ -1,0 +1,35 @@
+@model WebApplication1.Models.Admission
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Admission</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.AdmissionId)
+    @Html.HiddenFor(m => m.AdmissionDate)
+    @Html.HiddenFor(m => m.IsDischarged)
+
+    <div class="mb-2">
+        <label>Patient</label>
+        @Html.DropDownList("PatientId", null, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        <label>Doctor</label>
+        @Html.DropDownList("DoctorId", null, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        <label>Bed</label>
+        @Html.DropDownList("BedId", null, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.TreatmentSummary)
+        @Html.TextAreaFor(m => m.TreatmentSummary, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

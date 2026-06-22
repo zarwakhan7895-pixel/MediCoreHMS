@@ -1,0 +1,20 @@
+@model WebApplication1.Models.Admission
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Discharge Patient: @Model.Patient.FullName</h2>
+
+@using (Html.BeginForm("DischargeConfirmed", "Admissions"))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id", Model.AdmissionId)
+
+    <div class="mb-2">
+        <label>Treatment Summary (required for discharge)</label>
+        <textarea name="treatmentSummary" class="form-control" rows="4" required></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Confirm Discharge</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

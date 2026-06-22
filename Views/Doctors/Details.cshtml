@@ -1,0 +1,14 @@
+@model WebApplication1.Models.Doctor
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Doctor Details</h2>
+<dl class="row">
+    <dt class="col-sm-3">Name</dt><dd class="col-sm-9">@Model.FullName</dd>
+    <dt class="col-sm-3">Specialization</dt><dd class="col-sm-9">@Model.Specialization</dd>
+    <dt class="col-sm-3">Ward</dt><dd class="col-sm-9">@Model.Ward</dd>
+    <dt class="col-sm-3">Available</dt><dd class="col-sm-9">@(Model.IsAvailable ? "Yes" : "No")</dd>
+    <dt class="col-sm-3">Schedule</dt><dd class="col-sm-9">@Model.ConsultationSchedule</dd>
+</dl>
+@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })

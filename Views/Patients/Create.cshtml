@@ -1,0 +1,44 @@
+@model WebApplication1.Models.Patient
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@(Model.PatientId == 0 ? "Add Patient" : "Edit Patient")</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.PatientId)
+
+    <div class="mb-2">
+        @Html.LabelFor(m => m.FullName)
+        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.Age)
+        @Html.TextBoxFor(m => m.Age, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.Gender)
+        @Html.DropDownListFor(m => m.Gender, new[] {
+            new SelectListItem { Text = "Male", Value = "Male" },
+            new SelectListItem { Text = "Female", Value = "Female" }
+        }, "-- Select --", new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.ContactNumber)
+        @Html.TextBoxFor(m => m.ContactNumber, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+    </div>
+    <div class="mb-2">
+        @Html.LabelFor(m => m.MedicalHistory)
+        @Html.TextAreaFor(m => m.MedicalHistory, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-secondary" })
+}

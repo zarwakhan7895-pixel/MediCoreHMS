@@ -1,0 +1,43 @@
+@model IEnumerable<WebApplication1.Models.Admission>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Admissions</h2>
+<p>@Html.ActionLink("+ New Admission", "Create", null, new { @class = "btn btn-success mb-2" })</p>
+
+<table class="table table-striped">
+    <tr>
+        <th>Patient</th><th>Doctor</th><th>Ward</th><th>Bed</th><th>Entry Type</th>
+        <th>Admission Date</th><th>Status</th><th></th>
+    </tr>
+    @foreach (var a in Model)
+    {
+        <tr>
+            <td>@a.Patient.FullName</td>
+            <td>@a.Doctor.FullName</td>
+            <td>@a.Ward</td>
+            <td>@a.Bed.Ward - Bed #@a.Bed.BedNumber</td>
+            <td>@a.EntryType</td>
+            <td>@a.AdmissionDate.ToString("dd-MMM-yyyy")</td>
+            <td>
+                @if (a.IsDischarged)
+                {
+                    <span class="badge bg-secondary">Discharged</span>
+                }
+                else
+                {
+                    <span class="badge bg-success">Admitted</span>
+                }
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = a.AdmissionId }, new { @class = "btn btn-sm btn-info" })
+                @if (!a.IsDischarged)
+                {
+                    @Html.ActionLink("Discharge", "Discharge", new { id = a.AdmissionId }, new { @class = "btn btn-sm btn-warning" })
+                }
+                @Html.ActionLink("Delete", "Delete", new { id = a.AdmissionId }, new { @class = "btn btn-sm btn-danger" })
+            </td>
+        </tr>
+    }
+</table>

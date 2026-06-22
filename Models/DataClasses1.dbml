@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MediCoreHMS" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=DESKTOP-PSLQDOQ\SQLEXPRESS;Initial Catalog=MediCoreHMS;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="MediCoreHMSConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Admissions" Member="Admissions">
+    <Type Name="Admission">
+      <Column Name="AdmissionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PatientId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DoctorId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BedId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Ward" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="EntryType" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="AdmissionDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DischargeDate" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="TreatmentSummary" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsDischarged" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Bed_Admission" Member="Bed" ThisKey="BedId" OtherKey="BedId" Type="Bed" IsForeignKey="true" />
+      <Association Name="Doctor_Admission" Member="Doctor" ThisKey="DoctorId" OtherKey="DoctorId" Type="Doctor" IsForeignKey="true" />
+      <Association Name="Patient_Admission" Member="Patient" ThisKey="PatientId" OtherKey="PatientId" Type="Patient" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Beds" Member="Beds">
+    <Type Name="Bed">
+      <Column Name="BedId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Ward" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="BedNumber" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IsOccupied" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Bed_Admission" Member="Admissions" ThisKey="BedId" OtherKey="BedId" Type="Admission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Doctors" Member="Doctors">
+    <Type Name="Doctor">
+      <Column Name="DoctorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Specialization" Type="System.String" DbType="VarChar(150)" CanBeNull="true" />
+      <Column Name="Ward" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IsAvailable" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ConsultationSchedule" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Association Name="Doctor_Admission" Member="Admissions" ThisKey="DoctorId" OtherKey="DoctorId" Type="Admission" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Patients" Member="Patients">
+    <Type Name="Patient">
+      <Column Name="PatientId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FullName" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
+      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="ContactNumber" Type="System.String" DbType="VarChar(30)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="MedicalHistory" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="RegisteredOn" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Patient_Admission" Member="Admissions" ThisKey="PatientId" OtherKey="PatientId" Type="Admission" />
+    </Type>
+  </Table>
+</Database>
