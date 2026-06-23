@@ -1,8 +1,8 @@
 -- ====================================================================
 -- MEDICORE CITY HOSPITAL DATABASE
--- Group Members - Registration IDs: 65942 , 64484
--- GCN = (26+26+) % 5 = 52 % 5 = 2
--- GCN 2 => Dashboard shows Doctors On Duty + Admissions in Last 24 Hours
+-- Group Members - Registration IDs: 65942, 64484
+-- GCN = (65942+64484) % 5 = 130426 % 5 = 1
+-- GCN 1 => Dashboard shows Doctors On Duty + Admissions in Last 24 Hours
 -- ====================================================================
 
 
