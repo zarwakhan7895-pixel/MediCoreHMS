@@ -7,7 +7,6 @@ using MediCoreHMS.ViewModels;
 namespace MediCoreHMS.Controllers
 {
     // GROUP CONFIGURATION NUMBER (GCN) = 1
-    // (3 group members: 65916, 67429, 63930 -> digit sum 76 -> 76 % 5 = 1)
     // Required dashboard widgets: Doctors currently on duty +
     // Admissions made during the last 24 hours
     public class DashboardController : Controller
